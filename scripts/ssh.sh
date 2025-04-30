@@ -1,4 +1,4 @@
-#!usr/bin/ bash
+#!/bin/bash
 set -e
 
 # Resolve the directory where the script is located
