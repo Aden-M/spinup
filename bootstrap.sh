@@ -11,7 +11,8 @@ for script in ./scripts/*.sh; do
     echo "Made executable: $script"
 done
 
-./scripts/zsh-helper.sh
+#./scripts/zsh-helper.sh
+./scripts/zsh.sh
 ./scripts/docker.sh
-./scripts/
+./scripts/ssh.sh
 
