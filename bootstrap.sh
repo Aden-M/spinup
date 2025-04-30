@@ -14,6 +14,6 @@ done
 #./scripts/zsh-helper.sh
 ./scripts/zsh.sh
 ./scripts/docker.sh
-./scripts/ssh.sh
 ./scripts/ufw.sh
+./scripts/ssh.sh
 
