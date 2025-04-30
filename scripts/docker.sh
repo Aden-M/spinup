@@ -15,4 +15,10 @@ echo \
 sudo apt-get update
 # Install Docker
 sudo apt-get install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
+# Add the user to the Docker Group
 sudo usermod -aG docker "$USER"
+# Create a directory for docker compose containers:
+sudo mkdir -p /srv/docker
+sudo chown "$USER":"$USER" /srv/docker
+
+

@@ -15,4 +15,5 @@ done
 ./scripts/zsh.sh
 ./scripts/docker.sh
 ./scripts/ssh.sh
+./scripts/ufw.sh
 
