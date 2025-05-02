@@ -1,4 +1,11 @@
 #!/bin/bash
+
+# Installs Docker, Docker-Compose, creates a /srv/docker directory accessible and owned by the executing user.
+# Author: Aden-M (Aden Mann)
+# Date: 04/30/2025
+
+set -e
+
 # Add Docker's official GPG key:
 sudo apt-get update
 sudo apt-get install ca-certificates curl
@@ -13,12 +20,12 @@ echo \
   sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
 
 sudo apt-get update
+
 # Install Docker
 sudo apt-get install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
+
 # Add the user to the Docker Group
 sudo usermod -aG docker "$USER"
 # Create a directory for docker compose containers:
 sudo mkdir -p /srv/docker
 sudo chown "$USER":"$USER" /srv/docker
-
-

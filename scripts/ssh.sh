@@ -1,4 +1,9 @@
 #!/bin/bash
+
+# Adds SSH public keys to the authorized keys of the user running this script
+# Author: Aden-M (Aden Mann)
+# Date: 04/30/2025
+
 set -e
 
 # Resolve the directory where the script is located

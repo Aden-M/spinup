@@ -1,4 +1,9 @@
 #!/bin/bash
+
+# Sets up UFW for SSH connections
+# Author: Aden-M (Aden Mann)
+# Date: 04/30/2025
+
 set -e
 echo "Allowing SSH"
 sudo ufw allow 22/tcp

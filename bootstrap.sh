@@ -1,17 +1,23 @@
 #!/bin/bash
 
-#Exit Upon Failure
+# Calls and executes a series of setup scripts.
+# Author: Aden-M (Aden Mann)
+# Date: 04/30/2025
+
+# Exit Upon Failure
 set -e
 
-SPINUP_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-cd "$SPINUP"
+# Define the working directory
+WDIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+cd "$WDIR"
 
+# Make all scripts executable
 for script in ./scripts/*.sh; do
     chmod +x "$script"
     echo "Made executable: $script"
 done
 
-#./scripts/zsh-helper.sh
+# Execute all scripts
 ./scripts/zsh.sh
 ./scripts/docker.sh
 ./scripts/ufw.sh

@@ -1,4 +1,8 @@
 #!/usr/bin/env bash
+
+# Sets up ZSH/OMZ from given .zshrc, adenm.zsh-theme files
+# Author: Aden-M (Aden Mann)
+# Date: 04/30/2025
 set -e
 
 # Determine where this script lives and where the repo root is
