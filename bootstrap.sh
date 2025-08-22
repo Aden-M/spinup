@@ -2,7 +2,7 @@
 
 # Calls and executes a series of setup scripts.
 # Author: Aden-M (Aden Mann)
-# Date: 04/30/2025
+# Date: 08/22/2025
 
 # Exit Upon Failure
 set -e
@@ -18,8 +18,8 @@ for script in ./scripts/*.sh; do
 done
 
 # Execute all scripts
-./scripts/zsh.sh
-./scripts/docker.sh
-./scripts/ufw.sh
-./scripts/ssh.sh
+#./scripts/zsh.sh
+#./scripts/docker.sh
+#./scripts/ufw.sh
+#./scripts/ssh.sh
 
