@@ -22,7 +22,7 @@ chsh -s "$(which zsh)"
 echo "Installed zsh and set as default shell."
 
 # 4. Copy your custom .zshrc from the repo
-cp "$ZSH_SOURCE_DIR/astroport.zshrc" "$HOME/.zshrc"
+cp "$ZSH_SOURCE_DIR/.zshrc" "$HOME/.zshrc"
 echo "Copied .zshrc to home directory."
 
 # 6. Install plugins

@@ -1,18 +1,24 @@
-# ubuntu-bootstrap
+# Ubuntu Development Environment Bootstrap
 
-ubuntu-bootstrap automates the initial setup of a fresh Ubuntu or Debian server. The included scripts
-install common tools, harden SSH access, and configure a developer friendly Zsh
-environment. A single bootstrap script drives the standard setup while other
-utilities can be run individually, if needed.
+This repository contains a set of automated scripts to quickly and reproducibly set up a complete development environment on a fresh Ubuntu installation. It streamlines the process of installing essential packages, synchronizing dotfiles, and configuring a personalized workspace, saving significant time and effort for engineers and developers.
 
-## Features
+# Problem Solved
 
-- **Docker & Docker Compose** installation
-- **Firewall** configuration via UFW
-- **Optional Fail2ban** setup to protect SSH
-- **Oh My Zsh** with a custom theme and plugins
-- **SSH key enrollment** from `secrets/pubkey.secrets`
-- **Hostname** configuration script
+Setting up a new development machine can be a time-consuming and manual process, prone to errors. This project solves that problem by automating the entire configuration, ensuring a consistent and ready-to-use environment across different machines.
+
+# Key Features
+- **Docker & Docker Compose:** Installs Docker for containerization and Docker Compose for multi-container orchestration.
+- **Firewall Configuration:** Sets up firewall rules via UFW to secure the system and prevent unauthorized access.
+- **SSH Configuration:** Configures key-based SSH access with user-provided public keys.
+- **Optional Fail2ban Setup:** Includes a script to optionally configurat Fail2Ban SSH protection.
+- **Reproducible Deployments:** This script has been validated to work on Ubuntu based systems, including Ubuntu for WSL.
+- **ZShell:** Includes a lightweight ZSH theme that replicates the default Ubuntu Bash shell, but with autocompletions, autosugestions, syntax highlighting, and git integration.
+
+# Technologies Used
+- **Languages:** Shell Script (Bash)
+- **Tools:** Git, Docker, GitHub CI/CD
+- **Platforms:** Ubuntu (Server 22.04 LTS, 24.04 LTS, 25.04, WSL)
+
 
 ## Repository layout
 
@@ -26,10 +32,11 @@ scripts/              # individual setup scripts
   ufw.sh              # configure firewall rules
   zsh.sh              # install zsh with custom .zshrc
 secrets/              # place pubkey.secrets here
-zsh/                  # custom .zshrc and theme
+zsh/                  # custom .zshrc 
 ```
 
-## Installation (Ubuntu/Debian)
+## How to Use
+To use this project, simply clone the repository and run the bootstrap script from your terminal.
 
 1. Install git and curl:
 
@@ -75,6 +82,10 @@ Each script performs a single task and can be executed independently. The
 repeatability and minimal prerequisites. Secrets and custom configuration files
 live inside the `secrets/` and `zsh/` directories so they can be versioned
 separately from the setup logic.
+
+## Lessons Learned & Future Improvements:
+- **Idempotency:** A key challenge was designing scrimpts to be idempotent, meaning they could run multiple times without cuasing errors or unwanted side effects.
+- **Future Work:** Use checksums to validate each script file before running to avoid malicious use, add robust error handling, add update and uninstall scripts.
 
 ## License
 
