@@ -1,147 +1,105 @@
-# If you come from bash you might have to change your $PATH.
-# export PATH=$HOME/bin:$HOME/.local/bin:/usr/local/bin:$PATH
+##############################################################################
+# ~/.zshrc – lightweight prompt with robust Git status colouring            #
+##############################################################################
 
-# Path to your Oh My Zsh installation.
-export ZSH="$HOME/.oh-my-zsh"
+# Exit early if the shell isn’t interactive
+[[ $- != *i* ]] && return
 
-# Set name of the theme to load --- if set to "random", it will
-# load a random theme each time Oh My Zsh is loaded, in which case,
-# to know which specific one was loaded, run: echo $RANDOM_THEME
-# See https://github.com/ohmyzsh/ohmyzsh/wiki/Themes
-ZSH_CUSTOM="$HOME/.oh-my-zsh/custom/"
-ZSH_THEME="adenm"
+##### 1) History & general options ###########################################
+HISTFILE=$HOME/.zsh_history
+setopt prompt_subst EXTENDED_GLOB INC_APPEND_HISTORY \
+       HIST_IGNORE_SPACE SHARE_HISTORY EXTENDED_HISTORY \
+       HIST_EXPIRE_DUPS_FIRST HIST_FIND_NO_DUPS \
+       HIST_REDUCE_BLANKS HIST_VERIFY
+HISTSIZE=5000
+SAVEHIST=10000
 
+##### 2) Completion ###########################################################
+autoload -Uz compinit && compinit -u
+zstyle ':completion:*' rehash true
 
-# Set list of themes to pick from when loading at random
-# Setting this variable when ZSH_THEME=random will cause zsh to load
-# a theme from this variable instead of looking in $ZSH/themes/
-# If set to an empty array, this variable will have no effect.
-# ZSH_THEME_RANDOM_CANDIDATES=( "robbyrussell" "agnoster" )
+##### 3) Plugins #############################################################
+plugins=(
+  zsh-autosuggestions
+  zsh-syntax-highlighting
+  zsh-autocomplete
+)
+ZSH_PLUGIN_DIR="$HOME/.zsh/plugins"
+ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=8'
 
-# Uncomment the following line to use case-sensitive completion.
-# CASE_SENSITIVE="true"
-
-# Uncomment the following line to use hyphen-insensitive completion.
-# Case-sensitive completion must be off. _ and - will be interchangeable.
-# HYPHEN_INSENSITIVE="true"
-
-# Uncomment one of the following lines to change the auto-update behavior
-# zstyle ':omz:update' mode disabled  # disable automatic updates
-# zstyle ':omz:update' mode auto      # update automatically without asking
-# zstyle ':omz:update' mode reminder  # just remind me to update when it's time
-
-# Uncomment the following line to change how often to auto-update (in days).
-# zstyle ':omz:update' frequency 13
-
-# Uncomment the following line if pasting URLs and other text is messed up.
-# DISABLE_MAGIC_FUNCTIONS="true"
-
-# Uncomment the following line to disable colors in ls.
-# DISABLE_LS_COLORS="true"
-
-# Uncomment the following line to disable auto-setting terminal title.
-# DISABLE_AUTO_TITLE="true"
-
-# Uncomment the following line to enable command auto-correction.
-# ENABLE_CORRECTION="true"
-
-# Uncomment the following line to display red dots whilst waiting for completion.
-# You can also set it to another string to have that shown instead of the default red dots.
-# e.g. COMPLETION_WAITING_DOTS="%F{yellow}waiting...%f"
-# Caution: this setting can cause issues with multiline prompts in zsh < 5.7.1 (see #5765)
-# COMPLETION_WAITING_DOTS="true"
-
-# Uncomment the following line if you want to disable marking untracked files
-# under VCS as dirty. This makes repository status check for large repositories
-# much, much faster.
-# DISABLE_UNTRACKED_FILES_DIRTY="true"
-
-# Uncomment the following line if you want to change the command execution time
-# stamp shown in the history command output.
-# You can set one of the optional three formats:
-# "mm/dd/yyyy"|"dd.mm.yyyy"|"yyyy-mm-dd"
-# or set a custom format using the strftime function format specifications,
-# see 'man strftime' for details.
-# HIST_STAMPS="mm/dd/yyyy"
-
-# Would you like to use another custom folder than $ZSH/custom?
-# ZSH_CUSTOM=/path/to/new-custom-folder
-
-# Which plugins would you like to load?
-# Standard plugins can be found in $ZSH/plugins/
-# Custom plugins may be added to $ZSH_CUSTOM/plugins/
-# Example format: plugins=(rails git textmate ruby lighthouse)
-# Add wisely, as too many plugins slow down shell startup.
-plugins=(git docker-compose zsh-autosuggestions zsh-syntax-highlighting zsh-autocomplete)
-
-source $ZSH/oh-my-zsh.sh
-
-# User configuration
-
-# export MANPATH="/usr/local/man:$MANPATH"
-
-# You may need to manually set your language environment
-# export LANG=en_US.UTF-8
-
-# Preferred editor for local and remote sessions
-# if [[ -n $SSH_CONNECTION ]]; then
-#   export EDITOR='vim'
-# else
-#   export EDITOR='nvim'
-# fi
-
-# Compilation flags
-# export ARCHFLAGS="-arch $(uname -m)"
-
-# Set personal aliases, overriding those provided by Oh My Zsh libs,
-# plugins, and themes. Aliases can be placed here, though Oh My Zsh
-# users are encouraged to define aliases within a top-level file in
-# the $ZSH_CUSTOM folder, with .zsh extension. Examples:
-# - $ZSH_CUSTOM/aliases.zsh
-# - $ZSH_CUSTOM/macos.zsh
-# For a full list of active aliases, run `alias`.
-#
-# Example aliases
-# alias zshconfig="mate ~/.zshrc"
-# alias ohmyzsh="mate ~/.oh-my-zsh"
-setopt transient_rprompt
-TRAPDEBUG() {
-   [[ $ZSH_EVAL_CONTEXT =~ :file$ ]] && PROMPT='%F{244}❯%f ' RPS1=''
-}
-# Generalized transient prompt: hides right prompt and shortens left prompt
-zle-line-init() {
-  emulate -L zsh
-
-  [[ $CONTEXT == start ]] || return 0
-
-  # Recursive editing logic for better compatibility
-  while true; do
-    zle .recursive-edit
-    local -i ret=$?
-    [[ $ret == 0 && $KEYS == $'\4' ]] || break
-    [[ -o ignore_eof ]] || exit 0
+for plugin in "${plugins[@]}"; do
+  plugin_dir="${ZSH_PLUGIN_DIR}/${plugin}"
+  [[ -d $plugin_dir ]] || continue
+  main=''
+  for candidate in "$plugin_dir"/*.plugin.zsh(N) "$plugin_dir"/${plugin}.zsh(N); do
+    [[ -r $candidate ]] && main=$candidate && break
   done
+  [[ -z $main ]] && for candidate in "$plugin_dir"/*.zsh(N); do
+    [[ $candidate == *run-tests.zsh ]] && continue
+    [[ -r $candidate ]] && main=$candidate && break
+  done
+  [[ -n $main ]] && source "$main"
+done
 
-  # Save current prompt and right prompt
-  local saved_prompt=$PROMPT
-  local saved_rprompt=$RPROMPT
+# history‑substring‑search keybindings (if present)
+if (( $+functions[history-substring-search-up] )); then
+  for map in '' viins vicmd; do
+    bindkey -M ${map:-main} '^[[A' history-substring-search-up
+    bindkey -M ${map:-main} '^[[B' history-substring-search-down
+  done
+fi
 
-  # Set transient prompt: minimal left prompt and no right prompt
-  PROMPT='%F{244}❯ '
-  RPROMPT='%F{242}'
-  zle .reset-prompt
+##### 4) Colours & Debian chroot label ######################################
+autoload -U colors && colors
+[[ -z ${debian_chroot:-} && -r /etc/debian_chroot ]] && debian_chroot=$(< /etc/debian_chroot)
 
-  # Restore original prompt settings after execution
-  PROMPT=$saved_prompt
-  RPROMPT=$saved_rprompt
+##### 5) Lightweight Git status function ####################################
+# Uses git porcelain output for fast, reliable status detection.
 
-  if (( ret )); then
-    zle .send-break
+_git_prompt_info() {
+  local branch dirty staged untracked colour
+  # Ensure we are inside a Git work‑tree
+  if git rev-parse --is-inside-work-tree &>/dev/null; then
+    branch=$(git symbolic-ref --quiet --short HEAD 2>/dev/null || git rev-parse --short HEAD 2>/dev/null)
+
+    # Collect status (porcelain output is machine‑readable)
+    local gs
+    gs=$(git status --porcelain 2>/dev/null)
+    [[ -n $gs ]] && {
+      [[ $gs == *"?? "* ]] && untracked=1        # untracked files
+      echo "$gs" | grep -q '^[MADRCU]' && staged=1   # any staged changes
+      echo "$gs" | grep -q '^.M' && dirty=1          # any unstaged mods
+    }
+
+    # Colour priority: unstaged/untracked (bright red = 9) > staged (yellow) > clean (soft green = 10)
+    if [[ -n $dirty || -n $untracked ]]; then
+      colour=9      # bright/light red (ANSI colour 9)
+    elif [[ -n $staged ]]; then
+      colour=yellow # standard yellow
+    else
+      colour=#5fd700     # bright/light green (ANSI colour 10)
+    fi
+
+    GIT_SEGMENT="%F{$colour} (${branch})%f"
   else
-    zle .accept-line
+    GIT_SEGMENT=""
   fi
-  return ret
 }
+add-zsh-hook precmd _git_prompt_info
 
-# Attach the transient behavior to the line editor
-zle -N zle-line-init
+##### 6) Prompt ##############################################################
+PROMPT='${debian_chroot:+($debian_chroot)}%B%F{green}%n@%m%b%f:%B%F{blue}%~%b%f${GIT_SEGMENT}%(!.#.$) '
+
+##### 7) XTerm/Rxvt window title ############################################
+precmd_title() { print -Pn "\e]0;%n@%m: %~\a" }
+case $TERM in
+  (xterm*|rxvt*) add-zsh-hook precmd precmd_title ;;
+esac
+
+##### 8) Colourised ls + legacy aliases #####################################
+if command -v dircolors >/dev/null; then
+  eval "$(dircolors -b ~/.dircolors 2>/dev/null || dircolors -b)"
+  alias ls='ls --color=auto'
+fi
+[[ -f ~/.zsh_aliases ]] && source ~/.zsh_aliases
+zmodload zsh/zprof
