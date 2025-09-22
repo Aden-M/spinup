@@ -2,7 +2,7 @@
 
 # Installs development environment tools to fulfill the requirements for a complete python development in WSL with Ubuntu.
 # Author: Aden-M (Aden Mann)
-# Version: 0.1
+# Version: 0.2
 # Validated: false
 # Date: 09/22/2025
 
@@ -16,7 +16,6 @@ sudo apt-get install -y \
     python3-dev \
     python3-setuptools \
     python3-wheel \
-    python3-distutils \
     build-essential \
     pkg-config \
     libffi-dev \
