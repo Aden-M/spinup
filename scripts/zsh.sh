@@ -2,6 +2,8 @@
 
 # Sets up zsh with a custom .zshrc and useful plugins.
 # Author: Aden-M (Aden Mann)
+# Version: 1.0
+# Validated: true
 # Date: 08/22/2025
 
 set -e 

@@ -2,6 +2,8 @@
 
 # Sets up sensible fail2ban to guard against brute-force ssh attempts
 # Author: Aden-M (Aden Mann)
+# Version: 1.0
+# Validated: false
 # Date: 05/01/2025
 
 set -e

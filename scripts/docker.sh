@@ -2,6 +2,8 @@
 
 # Installs Docker, Docker-Compose, creates a /srv/docker directory accessible and owned by the executing user.
 # Author: Aden-M (Aden Mann)
+# Version: 1.0
+# Validated: false
 # Date: 04/30/2025
 
 set -e
