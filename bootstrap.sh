@@ -19,7 +19,8 @@ done
 
 # Execute all scripts
 #./scripts/zsh.sh
-#./scripts/docker.sh
+./scripts/docker.sh
 #./scripts/ufw.sh
-#./scripts/ssh.sh
-
+#/./scripts/ssh.sh
+./scripts/cxx.sh
+./scripts/python.sh
