@@ -1,5 +1,7 @@
 ##############################################################################
-# ~/.zshrc – lightweight prompt with robust Git status colouring            #
+# ~/.zshrc – medium weight prompt with robust Git status colouring           #
+##############################################################################
+# VERSION 1.1                                                                #
 ##############################################################################
 
 # Exit early if the shell isn’t interactive
@@ -19,13 +21,14 @@ autoload -Uz compinit && compinit -u
 zstyle ':completion:*' rehash true
 
 ##### 3) Plugins #############################################################
+ZSH_PLUGIN_DIR="$HOME/.zsh/plugins"
+ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=8'
 plugins=(
   zsh-autosuggestions
   zsh-syntax-highlighting
   zsh-autocomplete
 )
-ZSH_PLUGIN_DIR="$HOME/.zsh/plugins"
-ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=8'
+
 
 for plugin in "${plugins[@]}"; do
   plugin_dir="${ZSH_PLUGIN_DIR}/${plugin}"
@@ -48,6 +51,11 @@ if (( $+functions[history-substring-search-up] )); then
     bindkey -M ${map:-main} '^[[B' history-substring-search-down
   done
 fi
+
+# Major Performance Fix:
+# Limit autocompletion efforts:
+zstyle ':autocomplete:*' min-input 10000 
+zstyle ':autocomplete:history-search:insert' yes  
 
 ##### 4) Colours & Debian chroot label ######################################
 autoload -U colors && colors

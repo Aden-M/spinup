@@ -18,7 +18,7 @@ for script in ./scripts/*.sh; do
 done
 
 # Execute all scripts
-#./scripts/zsh.sh
+./scripts/zsh.sh
 ./scripts/docker.sh
 #./scripts/ufw.sh
 #/./scripts/ssh.sh
