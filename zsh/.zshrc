@@ -1,7 +1,7 @@
 ##############################################################################
 # ~/.zshrc – medium weight prompt with robust Git status colouring           #
 ##############################################################################
-# VERSION 1.1                                                                #
+# VERSION 1.2                                                                #
 ##############################################################################
 
 # Exit early if the shell isn’t interactive
@@ -85,7 +85,7 @@ _git_prompt_info() {
     elif [[ -n $staged ]]; then
       colour=yellow # standard yellow
     else
-      colour=#5fd700     # bright/light green (ANSI colour 10)
+      colour=10     # bright/light green (ANSI colour 10)
     fi
 
     GIT_SEGMENT="%F{$colour} (${branch})%f"
