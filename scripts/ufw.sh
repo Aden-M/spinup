@@ -3,7 +3,7 @@
 # Sets up UFW for SSH connections
 # Author: Aden-M (Aden Mann)
 # Version: 1.1
-# Validated: false
+# Validated: true
 # Date: 04/30/2025
 
 set -e

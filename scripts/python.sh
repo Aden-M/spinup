@@ -3,7 +3,7 @@
 # Installs development environment tools to fulfill the requirements for a complete python development in WSL with Ubuntu.
 # Author: Aden-M (Aden Mann)
 # Version: 0.2
-# Validated: false
+# Validated: true
 # Date: 09/22/2025
 
 set -e

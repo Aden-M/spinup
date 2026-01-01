@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# Calls and executes a series of setup scripts for Debian/Ubuntu Server Clients.
+# Calls and executes a series of setup scripts for Debian/Ubuntu WSL Clients.
 # Author: Aden-M (Aden Mann)
 # Date: 01/01/2026
 

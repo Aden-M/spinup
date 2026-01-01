@@ -3,7 +3,7 @@
 # Installs development environment tools to fulfill the requirements for a complete C++ development in WSL with Ubuntu.
 # Author: Aden-M (Aden Mann)
 # Version: 0.2
-# Validation: false
+# Validation: true
 # Date: 09/22/2025
 
 set -e

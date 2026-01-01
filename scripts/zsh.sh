@@ -3,7 +3,7 @@
 # Sets up zsh with a custom .zshrc and useful plugins.
 # Author: Aden-M (Aden Mann)
 # Version: 1.1
-# Validated: false
+# Validated: ture
 # Date: 11/06/2025
 
 set -e 

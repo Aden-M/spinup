@@ -3,7 +3,7 @@
 # Adds SSH public keys to the authorized keys of the user running this script
 # Author: Aden-M (Aden Mann)
 # Version: 1.0
-# Validated: false
+# Validated: true
 # Date: 04/30/2025
 
 set -e
