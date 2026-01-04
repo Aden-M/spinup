@@ -15,7 +15,7 @@ sudo ufw default deny incoming
 sudo ufw default allow outgoing
 echo "Enabling Logging"
 sudo ufw logging on
-echo "Enalbing UFW"
+echo "Enabling UFW"
 sudo ufw --force enable
 echo "Firewall Status:"
 sudo ufw status verbose
